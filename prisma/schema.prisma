@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model create
+
+// User
+model User {
+  id               String            @id @default(uuid())
+  name             String
+  email            String            @unique
+  password         String
+  role             String
+  contactNo        String
+  address          String
+  profileImg       String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  reviewAndRatings ReviewAndRating[]
+  bookings         Booking[]
+  Faqs             Faqs[]
+  Blog             Blog[]
+  FeedBack         FeedBack[]
+
+  @@map("user")
+}
+
+// Category
+model Category {
+  id        String    @id @default(uuid())
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  services  Service[]
+
+  @@map("category")
+}
+
+// Services
+model Service {
+  id               String            @id @default(uuid())
+  title            String
+  author           String
+  price            Float
+  publicationDate  String
+  description      String
+  image            String
+  availability     String
+  categoryId       String
+  caterory         Category          @relation(fields: [categoryId], references: [id])
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  reviewAndRatings ReviewAndRating[]
+  FeedBack         FeedBack[]
+
+  @@map("service")
+}
+
+// Review And Rating
+model ReviewAndRating {
+  id        String   @id @default(uuid())
+  review    String
+  rating    Int
+  userId    String
+  serviceId String
+  // Define relationships to User and Services models
+  user      User     @relation(fields: [userId], references: [id])
+  service   Service  @relation(fields: [serviceId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("review_and_rating")
+}
+
+// bookings
+model Booking {
+  id          String            @id @default(uuid())
+  userId      String
+  servicedata Json
+  status      BookingStatusEnum
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  // Define relationship to User model
+  user        User              @relation(fields: [userId], references: [id])
+
+  @@map("booking")
+}
+
+// faqs
+model Faqs {
+  id        String   @id @default(uuid())
+  authorID  String
+  ques      String
+  ans       String
+  status    String   @default("inactive")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Define relationship to User model
+  user      User     @relation(fields: [authorID], references: [id])
+
+  @@map("faqs")
+}
+
+// blog
+model Blog {
+  id        String   @id @default(uuid())
+  authorID  String
+  title     String
+  image     String
+  desc      String
+  status    String   @default("inactive")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Define relationship to User model
+  user      User     @relation(fields: [authorID], references: [id])
+
+  @@map("blog")
+}
+
+// Feedback
+model FeedBack {
+  id        String   @id @default(uuid())
+  review    String
+  rating    Int
+  userId    String
+  serviceId String
+  // Define relationships to User and Services models
+  user      User     @relation(fields: [userId], references: [id])
+  service   Service  @relation(fields: [serviceId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("feedback")
+}
+
+enum RoleEnum {
+  user
+  admin
+  super_admin
+}
+
+enum BookingStatusEnum {
+  pending
+  approved
+  rejected
+  missing
+  canceled
+}
