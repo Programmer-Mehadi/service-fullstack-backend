@@ -23,6 +23,24 @@ const getSingleUser = catchAsync(async (req: Request, res: Response) => {
     data: result,
   })
 })
+const getAdminUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.getAdminUser(req.params.id)
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'User fetched successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'No User Found',
+      data: result,
+    })
+  }
+})
 
 const updateUser = catchAsync(async (req: Request, res: Response) => {
   const result = await UserService.updateUser(req.params.id, req.body)
@@ -46,15 +64,45 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const data = req.body
-  console.log(data.address)
+
   const base64Data = req?.files?.profileImg?.data?.toString('base64')
   data.profileImg =
     `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+
   const result = await UserService.createUser(data)
   sendResponse<object>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User created successfully',
+    data: result,
+  })
+})
+const createAdmin = catchAsync(async (req: Request, res: Response) => {
+  const data = req.body
+
+  const base64Data = req?.files?.profileImg?.data?.toString('base64')
+  if (base64Data) {
+    data.profileImg =
+      `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+  } else {
+    data.profileImg = ''
+  }
+
+  const result = await UserService.createAdmin(data)
+  sendResponse<object>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin created successfully',
+    data: result,
+  })
+})
+
+const roleChange = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserService.roleChange(req.params.id, req.body)
+  sendResponse<object>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Role changed successfully',
     data: result,
   })
 })
@@ -65,4 +113,7 @@ export const UserController = {
   updateUser,
   deleteUser,
   createUser,
+  createAdmin,
+  roleChange,
+  getAdminUser,
 }
