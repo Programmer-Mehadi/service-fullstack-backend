@@ -12,6 +12,18 @@ const getAllToDB = async () => {
     orderBy: {
       createdAt: 'desc',
     },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+      createdAt: true,
+      updatedAt: true,
+      user: {
+        select: {
+          name: true,
+        },
+      },
+    },
   })
   return result
 }
