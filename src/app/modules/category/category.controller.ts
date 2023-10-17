@@ -50,6 +50,24 @@ const getAllData = catchAsync(async (req: Request, res: Response) => {
     })
   }
 })
+const getAllListData = catchAsync(async (req: Request, res: Response) => {
+  const result = await CategoryService.getAllListToDB()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Category retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Category Not retrieved',
+      data: [],
+    })
+  }
+})
 
 const deleteData = catchAsync(async (req: Request, res: Response) => {
   const result = await CategoryService.deleteToDB(req?.params?.id)
@@ -123,4 +141,5 @@ export const CategoryController = {
   deleteData,
   getSingleData,
   updateData,
+  getAllListData,
 }

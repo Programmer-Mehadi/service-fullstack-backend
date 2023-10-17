@@ -27,6 +27,19 @@ const getAllToDB = async () => {
   })
   return result
 }
+const getAllListToDB = async () => {
+  const result = await prisma.category.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+    },
+  })
+  return result
+}
 
 const deleteToDB = async (id: string) => {
   const result = await prisma.category.delete({
@@ -62,4 +75,5 @@ export const CategoryService = {
   deleteToDB,
   getSingleToDB,
   updateToDB,
+  getAllListToDB,
 }

@@ -10,5 +10,6 @@ router.get('/get-all', auth(ADMIN), CategoryController.getAllData)
 router.delete('/delete/:id', auth(ADMIN), CategoryController.deleteData)
 router.get('/get/:id', auth(ADMIN), CategoryController.getSingleData)
 router.put('/update/:id', auth(ADMIN), CategoryController.updateData)
+router.get('/get-all-list', auth(ADMIN), CategoryController.getAllListData)
 
 export const CategoryRoutes = router
