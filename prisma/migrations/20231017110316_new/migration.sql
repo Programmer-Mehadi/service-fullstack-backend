@@ -24,6 +24,8 @@ CREATE TABLE "user" (
 CREATE TABLE "category" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "authorID" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -34,12 +36,13 @@ CREATE TABLE "category" (
 CREATE TABLE "service" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "author" TEXT NOT NULL,
+    "authorID" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "publicationDate" TEXT NOT NULL,
+    "publicationDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "description" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "availability" TEXT NOT NULL,
+    "features" TEXT NOT NULL,
     "categoryId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -116,7 +119,13 @@ CREATE TABLE "feedback" (
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- AddForeignKey
+ALTER TABLE "category" ADD CONSTRAINT "category_authorID_fkey" FOREIGN KEY ("authorID") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "service" ADD CONSTRAINT "service_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "service" ADD CONSTRAINT "service_authorID_fkey" FOREIGN KEY ("authorID") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "review_and_rating" ADD CONSTRAINT "review_and_rating_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

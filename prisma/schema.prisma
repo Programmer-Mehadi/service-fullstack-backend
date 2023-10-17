@@ -27,6 +27,7 @@ model User {
   Blog             Blog[]
   FeedBack         FeedBack[]
   Category         Category[]
+  Service          Service[]
 
   @@map("user")
 }
@@ -49,7 +50,7 @@ model Category {
 model Service {
   id               String            @id @default(uuid())
   title            String
-  author           String
+  authorID         String
   price            Float
   publicationDate  DateTime          @default(now())
   description      String
@@ -57,7 +58,8 @@ model Service {
   availability     String
   features         String
   categoryId       String
-  caterory         Category          @relation(fields: [categoryId], references: [id])
+  category         Category          @relation(fields: [categoryId], references: [id])
+  user             User              @relation(fields: [authorID], references: [id])
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   reviewAndRatings ReviewAndRating[]

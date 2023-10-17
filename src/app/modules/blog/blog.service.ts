@@ -4,7 +4,7 @@ const createToDB = async (data: any) => {
   const result = await prisma.blog.create({
     data: data,
   })
-  console.log(result)
+
   return result
 }
 
