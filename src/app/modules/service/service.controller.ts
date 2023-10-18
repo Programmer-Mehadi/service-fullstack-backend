@@ -154,6 +154,62 @@ const statusChange = catchAsync(async (req: Request, res: Response) => {
   }
 })
 
+const getAvailableService = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceService.getAvailableService()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service Not retrieved',
+      data: null,
+    })
+  }
+})
+const getUpcomingService = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceService.getUpcomingService()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service Not retrieved',
+      data: null,
+    })
+  }
+})
+
+const getServiceByCategory = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceService.getServiceByCategory(req?.params?.id)
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service Not retrieved',
+      data: null,
+    })
+  }
+})
+
 export const ServiceController = {
   createData,
   getAllData,
@@ -162,4 +218,7 @@ export const ServiceController = {
   updateData,
   getAllListData,
   statusChange,
+  getAvailableService,
+  getUpcomingService,
+  getServiceByCategory,
 }

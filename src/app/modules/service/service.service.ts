@@ -18,6 +18,7 @@ const getAllToDB = async () => {
       image: true,
       description: true,
       availability: true,
+      upcoming: true,
       price: true,
       user: {
         select: {
@@ -72,6 +73,7 @@ const getSingleToDB = async (id: string) => {
       location: true,
       features: true,
       price: true,
+      upcoming: true,
       category: {
         select: {
           title: true,
@@ -104,6 +106,69 @@ const statusChange = async (id: string, data: any) => {
   })
   return result
 }
+
+const getAvailableService = async () => {
+  const result = await prisma.service.findMany({
+    where: {
+      availability: 'Available',
+      upcoming: {
+        not: 'true',
+      },
+    },
+    select: {
+      title: true,
+      image: true,
+      price: true,
+      location: true,
+      category: {
+        select: {
+          title: true,
+        },
+      },
+    },
+  })
+  return result
+}
+const getUpcomingService = async () => {
+  const result = await prisma.service.findMany({
+    where: {
+      upcoming: 'true',
+    },
+    select: {
+      title: true,
+      image: true,
+      price: true,
+      location: true,
+      category: {
+        select: {
+          title: true,
+        },
+      },
+    },
+  })
+  return result
+}
+
+const getServiceByCategory = async (id: string) => {
+  const result = await prisma.service.findMany({
+    where: {
+      categoryId: id,
+    },
+    select: {
+      title: true,
+      image: true,
+      price: true,
+      location: true,
+      category: {
+        select: {
+          title: true,
+        },
+      },
+    },
+  })
+  return result
+}
+
 export const ServiceService = {
   createToDB,
   getAllToDB,
@@ -112,4 +177,7 @@ export const ServiceService = {
   updateToDB,
   getAllListToDB,
   statusChange,
+  getAvailableService,
+  getUpcomingService,
+  getServiceByCategory,
 }

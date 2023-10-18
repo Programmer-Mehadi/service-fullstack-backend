@@ -12,4 +12,7 @@ router.get('/get/:id', auth(ADMIN), ServiceController.getSingleData)
 router.put('/update/:id', auth(ADMIN), ServiceController.updateData)
 router.get('/get-all-list', ServiceController.getAllListData)
 router.put('/status-change/:id', auth(ADMIN), ServiceController.statusChange)
+router.get('/available-service', ServiceController.getAvailableService)
+router.get('/upcoming-service', ServiceController.getUpcomingService)
+router.get('/service-by-category/:id', ServiceController.getServiceByCategory)
 export const ServiceRoutes = router
