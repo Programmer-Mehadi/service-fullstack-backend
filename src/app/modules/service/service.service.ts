@@ -116,6 +116,7 @@ const getAvailableService = async () => {
       },
     },
     select: {
+      id: true,
       title: true,
       image: true,
       price: true,
@@ -135,6 +136,7 @@ const getUpcomingService = async () => {
       upcoming: 'true',
     },
     select: {
+      id: true,
       title: true,
       image: true,
       price: true,
@@ -155,6 +157,7 @@ const getServiceByCategory = async (id: string) => {
       categoryId: id,
     },
     select: {
+      id: true,
       title: true,
       image: true,
       price: true,
