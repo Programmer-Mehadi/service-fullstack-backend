@@ -55,6 +55,7 @@ model Service {
   publicationDate  DateTime          @default(now())
   description      String
   image            String
+  location         String
   availability     String
   features         String
   categoryId       String

@@ -109,7 +109,7 @@ const getSingleData = async (req: Request, res: Response) => {
 
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body }
-
+  data.price = parseFloat(data?.price)
   const base64Data = req?.files?.image?.data?.toString('base64')
   if (base64Data) {
     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
@@ -128,7 +128,7 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
   } else {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
-      success: true,
+      success: false,
       message: 'Service Not updated',
       data: null,
     })

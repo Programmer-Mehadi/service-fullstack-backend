@@ -24,6 +24,7 @@ const getAllToDB = async () => {
           name: true,
         },
       },
+      location: true,
       category: {
         select: {
           title: true,
@@ -68,25 +69,22 @@ const getSingleToDB = async (id: string) => {
       image: true,
       description: true,
       availability: true,
+      location: true,
       features: true,
       price: true,
-      user: {
-        select: {
-          name: true,
-        },
-      },
       category: {
         select: {
           title: true,
+          id: true,
         },
       },
-      publicationDate: true,
     },
   })
   return result
 }
 
 const updateToDB = async (id: string, data: any) => {
+  console.log(data)
   const result = await prisma.service.update({
     where: {
       id: id,
