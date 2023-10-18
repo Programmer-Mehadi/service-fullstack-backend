@@ -7,6 +7,7 @@ import { BlogRoutes } from '../modules/blog/blog.route'
 import { CategoryRoutes } from '../modules/category/category.route'
 import { ServiceRoutes } from '../modules/service/service.route'
 import { FeedbackRoutes } from '../modules/feedback/feedback.route'
+import { ReviewRoutes } from '../modules/review/review.route'
 
 const router = express.Router()
 
@@ -42,6 +43,10 @@ const moduleRoutes = [
   {
     path: '/feedback',
     route: FeedbackRoutes,
+  },
+  {
+    path: '/review',
+    route: ReviewRoutes,
   },
 ]
 
