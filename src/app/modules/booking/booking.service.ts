@@ -48,8 +48,10 @@ const getAllToDB = async (user: any) => {
         price: true,
         time: true,
         date: true,
+        status: true,
         service: {
           select: {
+            id: true,
             title: true,
           },
         },

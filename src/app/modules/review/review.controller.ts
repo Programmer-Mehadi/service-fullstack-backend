@@ -6,21 +6,21 @@ import catchAsync from '../../../shared/catchAsync'
 
 const createData = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body, userId: req?.user?.userId }
-  data.experience = parseInt(data.experience)
+  data.rating = parseInt(data.rating)
 
   const result = await ReviewService.createToDB(data)
   if (result) {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback created successfully',
+      message: 'Review created successfully',
       data: result,
     })
   } else {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: false,
-      message: 'Feedback Not created',
+      message: 'Review Not created',
       data: null,
     })
   }
@@ -32,14 +32,14 @@ const getAll = catchAsync(async (req: Request, res: Response) => {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback retrieved successfully',
+      message: 'Review retrieved successfully',
       data: result,
     })
   } else {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback Not retrieved',
+      message: 'Review Not retrieved',
       data: null,
     })
   }
@@ -54,14 +54,14 @@ const deleteData = catchAsync(async (req: Request, res: Response) => {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback deleted successfully',
+      message: 'Review deleted successfully',
       data: result,
     })
   } else {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback Not deleted',
+      message: 'Review Not deleted',
       data: null,
     })
   }
@@ -73,14 +73,14 @@ const getSingleData = async (req: Request, res: Response) => {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback retrieved successfully',
+      message: 'Review retrieved successfully',
       data: result,
     })
   } else {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback Not retrieved',
+      message: 'Review Not retrieved',
       data: null,
     })
   }
@@ -93,14 +93,14 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback updated successfully',
+      message: 'Review updated successfully',
       data: result,
     })
   } else {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Feedback Not updated',
+      message: 'Review Not updated',
       data: null,
     })
   }
