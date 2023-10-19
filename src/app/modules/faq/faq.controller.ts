@@ -42,6 +42,24 @@ const getAll = catchAsync(async (req: Request, res: Response) => {
     })
   }
 })
+const getPublicAll = catchAsync(async (req: Request, res: Response) => {
+  const result = await FaqService.getPublicAll()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Faq retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Faq Not retrieved',
+      data: null,
+    })
+  }
+})
 
 const statusChange = catchAsync(async (req: Request, res: Response) => {
   const { status } = req.body
@@ -128,4 +146,5 @@ export const FaqController = {
   deleteFaq,
   getSingleFaq,
   updateFaq,
+  getPublicAll,
 }

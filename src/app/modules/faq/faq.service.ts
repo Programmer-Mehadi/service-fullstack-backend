@@ -19,6 +19,17 @@ const getAllToDB = async () => {
   return result
 }
 
+const getPublicAll = async () => {
+  const result = await prisma.faqs.findMany({
+    where: {
+      status: 'active',
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+  return result
+}
 const statusChange = async (id: string, data: any) => {
   console.log(data)
   const result = await prisma.faqs.update({
@@ -76,4 +87,5 @@ export const FaqService = {
   deleteFaq,
   getSingle,
   updateFaq,
+  getPublicAll,
 }

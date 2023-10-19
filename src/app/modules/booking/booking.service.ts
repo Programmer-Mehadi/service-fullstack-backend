@@ -16,23 +16,27 @@ const getAllToDB = async (user: any) => {
       },
       select: {
         id: true,
+        price: true,
+        time: true,
+        date: true,
         service: {
           select: {
             title: true,
           },
         },
-        createdAt: true,
-        updatedAt: true,
         user: {
           select: {
             name: true,
           },
         },
+        status: true,
+        createdAt: true,
+        updatedAt: true,
       },
     })
     return result
   } else {
-    const result = await prisma.booking.findMany({
+    const result: any = await prisma.booking.findMany({
       where: {
         userId: user?.userId,
       },
@@ -41,20 +45,16 @@ const getAllToDB = async (user: any) => {
       },
       select: {
         id: true,
-        review: true,
-        rating: true,
-        createdAt: true,
-        updatedAt: true,
-        user: {
-          select: {
-            name: true,
-          },
-        },
+        price: true,
+        time: true,
+        date: true,
         service: {
           select: {
             title: true,
           },
         },
+        createdAt: true,
+        updatedAt: true,
       },
     })
     return result
@@ -78,8 +78,7 @@ const getSingle = async (id: string) => {
     },
     select: {
       id: true,
-      review: true,
-      rating: true,
+
       createdAt: true,
       updatedAt: true,
       user: {
@@ -109,10 +108,22 @@ const updateToDB = async (id: string, data: any) => {
   return result
 }
 
+const statusChangeToDB = async (id: string, data: any) => {
+  const result = await prisma.booking.update({
+    where: {
+      id: id,
+    },
+    data: {
+      status: data,
+    },
+  })
+  return result
+}
 export const BookingService = {
   createToDB,
   getAllToDB,
   deleteToDB,
   getSingle,
   updateToDB,
+  statusChangeToDB,
 }

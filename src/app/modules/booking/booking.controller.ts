@@ -111,11 +111,32 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
     })
   }
 })
-
+const statusChange = catchAsync(async (req: Request, res: Response) => {
+  const result = await BookingService.statusChangeToDB(
+    req?.params?.id,
+    req?.body?.status
+  )
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Booking updated successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Booking Not updated',
+      data: null,
+    })
+  }
+})
 export const BookingController = {
   createData,
   getAll,
   deleteData,
   getSingleData,
   updateData,
+  statusChange,
 }
