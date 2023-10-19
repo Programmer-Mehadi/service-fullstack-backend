@@ -49,6 +49,24 @@ const getAll = catchAsync(async (req: Request, res: Response) => {
     })
   }
 })
+const getPublicList = catchAsync(async (req: Request, res: Response) => {
+  const result = await BlogService.getPublicListToDB()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog Not retrieved',
+      data: null,
+    })
+  }
+})
 
 const statusChange = catchAsync(async (req: Request, res: Response) => {
   const { status } = req.body
@@ -107,6 +125,24 @@ const getSingle = async (req: Request, res: Response) => {
     })
   }
 }
+const getPublicSingle = async (req: Request, res: Response) => {
+  const result = await BlogService.getPublicSingleToDB(req?.params?.id)
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog Not retrieved',
+      data: null,
+    })
+  }
+}
 
 const update = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body }
@@ -142,4 +178,6 @@ export const BlogController = {
   deleteToDB,
   getSingle,
   update,
+  getPublicList,
+  getPublicSingle,
 }

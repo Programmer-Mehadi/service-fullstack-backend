@@ -19,6 +19,26 @@ const getAllToDB = async () => {
   })
   return result
 }
+const getPublicListToDB = async () => {
+  const result = await prisma.blog.findMany({
+    where: {
+      status: 'active',
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      user: {
+        select: {
+          profileImg: true,
+          name: true,
+        },
+      },
+    },
+  })
+
+  return result
+}
 
 const statusChange = async (id: string, data: any) => {
   console.log(data)
@@ -50,6 +70,23 @@ const getSingle = async (id: string) => {
   })
   return result
 }
+const getPublicSingleToDB = async (id: string) => {
+  const result = await prisma.blog.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      user: {
+        select: {
+          profileImg: true,
+          name: true,
+        },
+      },
+    },
+  })
+  console.log(result)
+  return result
+}
 
 const update = async (id: string, data: any) => {
   const result = await prisma.blog.update({
@@ -68,4 +105,6 @@ export const BlogService = {
   deleteToDB,
   getSingle,
   update,
+  getPublicListToDB,
+  getPublicSingleToDB,
 }
