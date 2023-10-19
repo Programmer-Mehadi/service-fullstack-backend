@@ -10,5 +10,5 @@ router.get('/get-all', auth(...ADMIN_USER), ReviewController.getAll)
 router.delete('/delete/:id', auth(USER), ReviewController.deleteData)
 router.get('/get/:id', auth(...ADMIN_USER), ReviewController.getSingleData)
 router.put('/update/:id', auth(USER), ReviewController.updateData)
-
+router.get('/get-all-by-service/:id', ReviewController.getAllByService)
 export const ReviewRoutes = router

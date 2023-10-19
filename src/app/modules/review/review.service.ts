@@ -110,10 +110,36 @@ const updateToDB = async (id: string, data: any) => {
   return result
 }
 
+const getAllByServiceToDB = async (id: string) => {
+  const result = await prisma.reviewAndRating.findMany({
+    where: {
+      serviceId: id,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    select: {
+      id: true,
+      review: true,
+      rating: true,
+      createdAt: true,
+      updatedAt: true,
+      user: {
+        select: {
+          name: true,
+          profileImg: true,
+        },
+      },
+    },
+  })
+  return result
+}
+
 export const ReviewService = {
   createToDB,
   getAllToDB,
   deleteToDB,
   getSingle,
   updateToDB,
+  getAllByServiceToDB,
 }

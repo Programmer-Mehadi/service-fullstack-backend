@@ -106,10 +106,30 @@ const updateData = catchAsync(async (req: Request, res: Response) => {
   }
 })
 
+const getAllByService = catchAsync(async (req: Request, res: Response) => {
+  const result = await ReviewService.getAllByServiceToDB(req?.params?.id)
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Review retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Review Not retrieved',
+      data: null,
+    })
+  }
+})
+
 export const ReviewController = {
   createData,
   getAll,
   deleteData,
   getSingleData,
   updateData,
+  getAllByService,
 }
