@@ -39,6 +39,27 @@ const getPublicListToDB = async () => {
 
   return result
 }
+const getLatestBlogToDB = async () => {
+  const result = await prisma.blog.findMany({
+    where: {
+      status: 'active',
+    },
+    orderBy: {
+      updatedAt: 'desc',
+    },
+    include: {
+      user: {
+        select: {
+          profileImg: true,
+          name: true,
+        },
+      },
+    },
+    take: 4,
+  })
+
+  return result
+}
 
 const statusChange = async (id: string, data: any) => {
   console.log(data)
@@ -107,4 +128,5 @@ export const BlogService = {
   update,
   getPublicListToDB,
   getPublicSingleToDB,
+  getLatestBlogToDB,
 }

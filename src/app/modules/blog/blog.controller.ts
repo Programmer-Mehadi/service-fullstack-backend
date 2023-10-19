@@ -67,6 +67,24 @@ const getPublicList = catchAsync(async (req: Request, res: Response) => {
     })
   }
 })
+const getLatestBlog = catchAsync(async (req: Request, res: Response) => {
+  const result = await BlogService.getLatestBlogToDB()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Blog Not retrieved',
+      data: null,
+    })
+  }
+})
 
 const statusChange = catchAsync(async (req: Request, res: Response) => {
   const { status } = req.body
@@ -180,4 +198,5 @@ export const BlogController = {
   update,
   getPublicList,
   getPublicSingle,
+  getLatestBlog,
 }

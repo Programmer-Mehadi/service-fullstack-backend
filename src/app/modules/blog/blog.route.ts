@@ -12,6 +12,7 @@ router.delete('/delete/:id', auth(ADMIN), BlogController.deleteToDB)
 router.get('/get/:id', auth(ADMIN), BlogController.getSingle)
 router.put('/update/:id', auth(ADMIN), BlogController.update)
 router.get('/get-public-list', BlogController.getPublicList)
+router.get('/latest-blog', BlogController.getLatestBlog)
 router.get('/get-public-single/:id', BlogController.getPublicSingle)
 
 export const BlogRoutes = router

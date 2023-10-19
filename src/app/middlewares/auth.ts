@@ -22,7 +22,7 @@ const auth =
 
       req.user = verifiedUser // role  , userid
 
-      console.log(verifiedUser)
+      // console.log(verifiedUser)
       // console.log(requiredRoles)
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {

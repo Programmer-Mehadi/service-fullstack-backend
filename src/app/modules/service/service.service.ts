@@ -36,6 +36,35 @@ const getAllToDB = async () => {
   })
   return result
 }
+const getPublicListToDB = async () => {
+  const result = await prisma.service.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+      description: true,
+      availability: true,
+      upcoming: true,
+      price: true,
+      user: {
+        select: {
+          name: true,
+        },
+      },
+      location: true,
+      category: {
+        select: {
+          title: true,
+        },
+      },
+      publicationDate: true,
+    },
+  })
+  return result
+}
 const getAllListToDB = async () => {
   const result = await prisma.service.findMany({
     orderBy: {
@@ -183,4 +212,5 @@ export const ServiceService = {
   getAvailableService,
   getUpcomingService,
   getServiceByCategory,
+  getPublicListToDB,
 }

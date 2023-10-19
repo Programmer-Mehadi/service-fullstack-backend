@@ -7,6 +7,7 @@ import catchAsync from '../../../shared/catchAsync'
 const createData = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body, authorID: req?.user?.userId }
   data.price = parseFloat(data?.price)
+
   const base64Data = req?.files?.image?.data?.toString('base64')
   if (base64Data) {
     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
@@ -50,6 +51,25 @@ const getAllData = catchAsync(async (req: Request, res: Response) => {
     })
   }
 })
+const getPublicList = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceService.getPublicListToDB()
+  if (result) {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service retrieved successfully',
+      data: result,
+    })
+  } else {
+    sendResponse<object>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Service Not retrieved',
+      data: null,
+    })
+  }
+})
+
 const getAllListData = catchAsync(async (req: Request, res: Response) => {
   const result = await ServiceService.getAllListToDB()
   if (result) {
@@ -221,4 +241,5 @@ export const ServiceController = {
   getAvailableService,
   getUpcomingService,
   getServiceByCategory,
+  getPublicList,
 }
