@@ -66,6 +66,7 @@ model Service {
   updatedAt        DateTime          @updatedAt
   reviewAndRatings ReviewAndRating[]
   FeedBack         FeedBack[]
+  Booking          Booking[]
 
   @@map("service")
 }
@@ -88,14 +89,19 @@ model ReviewAndRating {
 
 // bookings
 model Booking {
-  id          String            @id @default(uuid())
-  userId      String
-  servicedata Json
-  status      BookingStatusEnum
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  id        String            @id @default(uuid())
+  userId    String
+  serviceId String
+  price     Int
+  date      String
+  sameId    String
+  time      String
+  status    BookingStatusEnum
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
   // Define relationship to User model
-  user        User              @relation(fields: [userId], references: [id])
+  user      User              @relation(fields: [userId], references: [id])
+  service   Service           @relation(fields: [serviceId], references: [id])
 
   @@map("booking")
 }
