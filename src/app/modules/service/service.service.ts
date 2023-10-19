@@ -7,8 +7,25 @@ const createToDB = async (data: any) => {
   return result
 }
 
-const getAllToDB = async () => {
+const getAllToDB = async (query: {
+  name: string
+  category: string
+  location: string
+}) => {
   const result = await prisma.service.findMany({
+    where: {
+      title: {
+        contains: query.name,
+        mode: 'insensitive',
+      },
+      categoryId: {
+        contains: query.category,
+      },
+      location: {
+        contains: query.location,
+        mode: 'insensitive',
+      },
+    },
     orderBy: {
       createdAt: 'desc',
     },
@@ -36,8 +53,21 @@ const getAllToDB = async () => {
   })
   return result
 }
-const getPublicListToDB = async () => {
+const getPublicListToDB = async (query: any) => {
   const result = await prisma.service.findMany({
+    where: {
+      title: {
+        contains: query.name,
+        mode: 'insensitive',
+      },
+      categoryId: {
+        contains: query.category,
+      },
+      location: {
+        contains: query.location,
+        mode: 'insensitive',
+      },
+    },
     orderBy: {
       createdAt: 'desc',
     },

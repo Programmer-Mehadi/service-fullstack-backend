@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
-import sendResponse from '../../../shared/sendResponse'
 import httpStatus from 'http-status'
-import { ServiceService } from './service.service'
 import catchAsync from '../../../shared/catchAsync'
+import sendResponse from '../../../shared/sendResponse'
+import { ServiceService } from './service.service'
 
 const createData = catchAsync(async (req: Request, res: Response) => {
-  const data = { ...req.body, authorID: req?.user?.userId }
+  const data: any = { ...req.body, authorID: req?.user?.userId }
   data.price = parseFloat(data?.price)
 
   const base64Data = req?.files?.image?.data?.toString('base64')
@@ -34,7 +34,8 @@ const createData = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllData = catchAsync(async (req: Request, res: Response) => {
-  const result = await ServiceService.getAllToDB()
+  const query: any = req.query
+  const result = await ServiceService.getAllToDB(query)
   if (result) {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,
@@ -52,7 +53,8 @@ const getAllData = catchAsync(async (req: Request, res: Response) => {
   }
 })
 const getPublicList = catchAsync(async (req: Request, res: Response) => {
-  const result = await ServiceService.getPublicListToDB()
+  const query: any = req.query
+  const result = await ServiceService.getPublicListToDB(query)
   if (result) {
     sendResponse<object>(res, {
       statusCode: httpStatus.OK,

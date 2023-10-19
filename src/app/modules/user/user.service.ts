@@ -1,5 +1,3 @@
-import httpStatus from 'http-status'
-import ApiError from '../../../errors/ApiError'
 import prisma from '../../../shared/prisma'
 
 const getAlluser = async () => {
@@ -8,6 +6,9 @@ const getAlluser = async () => {
       role: {
         not: 'user',
       },
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
     select: {
       id: true,
