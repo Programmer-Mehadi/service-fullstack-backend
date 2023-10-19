@@ -1,11 +1,10 @@
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express, { Application, NextFunction, Request, Response } from 'express'
+import fileUpload from 'express-fileupload'
 import httpStatus from 'http-status'
 import globalErrorHandler from './app/middlewares/globalErrorHandler'
 import routes from './app/routes'
-import fileUpload from 'express-fileupload'
-import cookieParser from 'cookie-parser'
-import ApiError from './errors/ApiError'
 
 const app: Application = express()
 
@@ -20,7 +19,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send({
     status: true,
     message:
-      'Welcome to the Book Catalog Server, Server is running Successfully !',
+      'Welcome to the EleganceInteriors  Server, Server is running Successfully !',
   })
 })
 

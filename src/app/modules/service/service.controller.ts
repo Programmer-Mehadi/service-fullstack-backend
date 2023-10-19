@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { Request, Response } from 'express'
 import httpStatus from 'http-status'
 import catchAsync from '../../../shared/catchAsync'
@@ -8,9 +9,13 @@ const createData = catchAsync(async (req: Request, res: Response) => {
   const data: any = { ...req.body, authorID: req?.user?.userId }
   data.price = parseFloat(data?.price)
 
-  const base64Data = req?.files?.image?.data?.toString('base64')
-  if (base64Data) {
-    data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  if ('data' in req?.files?.image) {
+    const base64Data = req?.files?.image?.data?.toString('base64')
+    if (base64Data) {
+      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    } else {
+      data.image = ''
+    }
   } else {
     data.image = ''
   }
@@ -132,11 +137,15 @@ const getSingleData = async (req: Request, res: Response) => {
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body }
   data.price = parseFloat(data?.price)
-  const base64Data = req?.files?.image?.data?.toString('base64')
-  if (base64Data) {
-    data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  if ('data' in req?.files?.image) {
+    const base64Data = req?.files?.image?.data?.toString('base64')
+    if (base64Data) {
+      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    } else {
+      data.image = ''
+      delete data.image
+    }
   } else {
-    data.image = ''
     delete data.image
   }
   const result = await ServiceService.updateToDB(req?.params?.id, data)

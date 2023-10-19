@@ -8,3 +8,9 @@ declare global {
     }
   }
 }
+declare module 'express-fileupload' {
+  interface UploadedFile {
+    data: Buffer
+    // Add any other properties that you need here
+  }
+}

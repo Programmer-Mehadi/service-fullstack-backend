@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ServiceRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const service_controller_1 = require("./service.controller");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const user_1 = require("../../../shared/user");
+const router = express_1.default.Router();
+router.post('/', (0, auth_1.default)(user_1.ADMIN), service_controller_1.ServiceController.createData);
+router.get('/get-all', (0, auth_1.default)(user_1.ADMIN), service_controller_1.ServiceController.getAllData);
+router.delete('/delete/:id', (0, auth_1.default)(user_1.ADMIN), service_controller_1.ServiceController.deleteData);
+router.get('/get/:id', service_controller_1.ServiceController.getSingleData);
+router.put('/update/:id', (0, auth_1.default)(user_1.ADMIN), service_controller_1.ServiceController.updateData);
+router.get('/get-all-list', service_controller_1.ServiceController.getAllListData);
+router.put('/status-change/:id', (0, auth_1.default)(user_1.ADMIN), service_controller_1.ServiceController.statusChange);
+router.get('/available-service', service_controller_1.ServiceController.getAvailableService);
+router.get('/upcoming-service', service_controller_1.ServiceController.getUpcomingService);
+router.get('/service-by-category/:id', service_controller_1.ServiceController.getServiceByCategory);
+router.get('/get-public-list', service_controller_1.ServiceController.getPublicList);
+exports.ServiceRoutes = router;

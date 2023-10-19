@@ -1,14 +1,19 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { Request, Response } from 'express'
-import sendResponse from '../../../shared/sendResponse'
 import httpStatus from 'http-status'
-import { BlogService } from './blog.service'
 import catchAsync from '../../../shared/catchAsync'
+import sendResponse from '../../../shared/sendResponse'
+import { BlogService } from './blog.service'
 
 const create = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body, authorID: req?.user?.userId }
-  const base64Data = req?.files?.image?.data?.toString('base64')
-  if (base64Data) {
-    data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  if ('data' in req?.files?.image) {
+    const base64Data = req?.files?.image?.data?.toString('base64')
+    if (base64Data) {
+      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    } else {
+      data.image = ''
+    }
   } else {
     data.image = ''
   }
@@ -164,13 +169,19 @@ const getPublicSingle = async (req: Request, res: Response) => {
 
 const update = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body }
-  const base64Data = await req?.files?.image?.data?.toString('base64')
-  console.log(base64Data)
-  if (base64Data) {
-    data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  if ('data' in req?.files?.image) {
+    const base64Data = req?.files?.image?.data?.toString('base64')
+    if (base64Data) {
+      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    } else {
+      data.image = ''
+      delete data.image
+    }
   } else {
+    data.image = ''
     delete data.image
   }
+
   const result = await BlogService.update(req?.params?.id, data)
   if (result) {
     sendResponse<object>(res, {

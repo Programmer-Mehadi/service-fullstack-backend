@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BlogRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const blog_controller_1 = require("./blog.controller");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const user_1 = require("../../../shared/user");
+const router = express_1.default.Router();
+router.post('/', (0, auth_1.default)(user_1.ADMIN), blog_controller_1.BlogController.create);
+router.get('/get-all', (0, auth_1.default)(user_1.ADMIN), blog_controller_1.BlogController.getAll);
+router.put('/status-change/:id', (0, auth_1.default)(user_1.ADMIN), blog_controller_1.BlogController.statusChange);
+router.delete('/delete/:id', (0, auth_1.default)(user_1.ADMIN), blog_controller_1.BlogController.deleteToDB);
+router.get('/get/:id', (0, auth_1.default)(user_1.ADMIN), blog_controller_1.BlogController.getSingle);
+router.put('/update/:id', (0, auth_1.default)(user_1.ADMIN), blog_controller_1.BlogController.update);
+router.get('/get-public-list', blog_controller_1.BlogController.getPublicList);
+router.get('/latest-blog', blog_controller_1.BlogController.getLatestBlog);
+router.get('/get-public-single/:id', blog_controller_1.BlogController.getPublicSingle);
+exports.BlogRoutes = router;

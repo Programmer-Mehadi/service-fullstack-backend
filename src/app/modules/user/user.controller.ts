@@ -1,8 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { Request, Response } from 'express'
-import { UserService } from './user.service'
-import sendResponse from '../../../shared/sendResponse'
 import httpStatus from 'http-status'
 import catchAsync from '../../../shared/catchAsync'
+import sendResponse from '../../../shared/sendResponse'
+import { UserService } from './user.service'
 
 const getAllUser = async (req: Request, res: Response) => {
   const result = await UserService.getAlluser()
@@ -65,10 +66,13 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const data = req.body
 
-  const base64Data = req?.files?.profileImg?.data?.toString('base64')
-  data.profileImg =
-    `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
-
+  if ('data' in req.files?.profileImg) {
+    const base64Data = req?.files?.profileImg?.data?.toString('base64')
+    data.profileImg =
+      `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+  } else {
+    data.profileImg = ''
+  }
   const result = await UserService.createUser(data)
   sendResponse<object>(res, {
     statusCode: httpStatus.OK,
@@ -80,14 +84,17 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const data = req.body
 
-  const base64Data = req?.files?.profileImg?.data?.toString('base64')
-  if (base64Data) {
-    data.profileImg =
-      `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+  if ('data' in req.files?.profileImg) {
+    const base64Data = req?.files?.profileImg?.data?.toString('base64')
+    if (base64Data) {
+      data.profileImg =
+        `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+    } else {
+      data.profileImg = ''
+    }
   } else {
     data.profileImg = ''
   }
-
   const result = await UserService.createAdmin(data)
   sendResponse<object>(res, {
     statusCode: httpStatus.OK,
