@@ -145,7 +145,6 @@ const getSingleToDB = async (id: string) => {
 }
 
 const updateToDB = async (id: string, data: any) => {
-  console.log(data)
   const result = await prisma.service.update({
     where: {
       id: id,

@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingService = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const createToDB = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(data);
     const result = yield prisma_1.default.booking.createMany({
         data: data,
     });

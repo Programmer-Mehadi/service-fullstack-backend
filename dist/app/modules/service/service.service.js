@@ -151,7 +151,6 @@ const getSingleToDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const updateToDB = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(data);
     const result = yield prisma_1.default.service.update({
         where: {
             id: id,

@@ -1,7 +1,6 @@
 import prisma from '../../../shared/prisma'
 
 const createToDB = async (data: any) => {
-  console.log(data)
   const result = await prisma.booking.createMany({
     data: data,
   })

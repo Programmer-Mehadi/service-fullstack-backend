@@ -71,7 +71,6 @@ const getLatestBlogToDB = () => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const statusChange = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(data);
     const result = yield prisma_1.default.blog.update({
         where: {
             id: id,
@@ -112,7 +111,6 @@ const getPublicSingleToDB = (id) => __awaiter(void 0, void 0, void 0, function* 
             },
         },
     });
-    console.log(result);
     return result;
 });
 const update = (id, data) => __awaiter(void 0, void 0, void 0, function* () {

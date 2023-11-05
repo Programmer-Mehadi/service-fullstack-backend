@@ -20,7 +20,6 @@ const createUser: RequestHandler = catchAsync(
 )
 const loginUser: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    console.log(req.body)
     const { ...loginData } = req.body
     const result = await AuthService.loginUserDB(loginData)
     const { refreshToken, accessToken } = result

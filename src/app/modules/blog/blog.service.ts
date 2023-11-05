@@ -62,7 +62,6 @@ const getLatestBlogToDB = async () => {
 }
 
 const statusChange = async (id: string, data: any) => {
-  console.log(data)
   const result = await prisma.blog.update({
     where: {
       id: id,
@@ -105,7 +104,7 @@ const getPublicSingleToDB = async (id: string) => {
       },
     },
   })
-  console.log(result)
+
   return result
 }
 

@@ -39,7 +39,6 @@ const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     });
 }));
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const loginData = __rest(req.body, []);
     const result = yield auth_service_1.AuthService.loginUserDB(loginData);
     const { refreshToken, accessToken } = result;

@@ -11,9 +11,9 @@ const zod_1 = require("zod");
 const handleClientError_1 = __importDefault(require("../../errors/handleClientError"));
 const handleZodError_1 = __importDefault(require("../../errors/handleZodError"));
 const globalErrorHandler = (error, req, res, next) => {
-    config_1.default.env === 'development'
-        ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
-        : console.error(`🐱‍🏍 globalErrorHandler ~~`, error);
+    // config.env === 'development'
+    //   ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
+    //   : console.error(`🐱‍🏍 globalErrorHandler ~~`, error)
     let statusCode = 500;
     let message = 'Something went wrong !';
     let errorMessages = [];

@@ -31,7 +31,6 @@ const getPublicAll = async () => {
   return result
 }
 const statusChange = async (id: string, data: any) => {
-  console.log(data)
   const result = await prisma.faqs.update({
     where: {
       id: id,
