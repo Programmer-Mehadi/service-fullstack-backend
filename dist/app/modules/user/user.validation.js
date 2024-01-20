@@ -28,6 +28,10 @@ const CreateUser = zod_1.z.object({
             required_error: 'Address is required',
             invalid_type_error: 'Address must be a string',
         }),
+        profileImg: zod_1.z.string({
+            required_error: 'Profile image is required',
+            invalid_type_error: 'Profile image must be a string',
+        }),
     }),
 });
 exports.UserValidation = {

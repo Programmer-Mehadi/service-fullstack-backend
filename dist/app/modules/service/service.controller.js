@@ -18,21 +18,19 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const service_service_1 = require("./service.service");
 const createData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a;
     const data = Object.assign(Object.assign({}, req.body), { authorID: (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.userId });
     data.price = parseFloat(data === null || data === void 0 ? void 0 : data.price);
-    if ('data' in ((_b = req === null || req === void 0 ? void 0 : req.files) === null || _b === void 0 ? void 0 : _b.image)) {
-        const base64Data = (_e = (_d = (_c = req === null || req === void 0 ? void 0 : req.files) === null || _c === void 0 ? void 0 : _c.image) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.toString('base64');
-        if (base64Data) {
-            data.image = `data:${(_g = (_f = req === null || req === void 0 ? void 0 : req.files) === null || _f === void 0 ? void 0 : _f.image) === null || _g === void 0 ? void 0 : _g.mimetype};base64,` + base64Data;
-        }
-        else {
-            data.image = '';
-        }
-    }
-    else {
-        data.image = '';
-    }
+    // if ('data' in req?.files?.image) {
+    //   const base64Data = req?.files?.image?.data?.toString('base64')
+    //   if (base64Data) {
+    //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    //   } else {
+    //     data.image = ''
+    //   }
+    // } else {
+    //   data.image = ''
+    // }
     const result = yield service_service_1.ServiceService.createToDB(data);
     if (result) {
         (0, sendResponse_1.default)(res, {
@@ -111,8 +109,8 @@ const getAllListData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
     }
 }));
 const deleteData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _h;
-    const result = yield service_service_1.ServiceService.deleteToDB((_h = req === null || req === void 0 ? void 0 : req.params) === null || _h === void 0 ? void 0 : _h.id);
+    var _b;
+    const result = yield service_service_1.ServiceService.deleteToDB((_b = req === null || req === void 0 ? void 0 : req.params) === null || _b === void 0 ? void 0 : _b.id);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -131,8 +129,8 @@ const deleteData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     }
 }));
 const getSingleData = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _j;
-    const result = yield service_service_1.ServiceService.getSingleToDB((_j = req === null || req === void 0 ? void 0 : req.params) === null || _j === void 0 ? void 0 : _j.id);
+    var _c;
+    const result = yield service_service_1.ServiceService.getSingleToDB((_c = req === null || req === void 0 ? void 0 : req.params) === null || _c === void 0 ? void 0 : _c.id);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -151,23 +149,21 @@ const getSingleData = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 const updateData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _k, _l, _m, _o, _p, _q, _r;
+    var _d;
     const data = Object.assign({}, req.body);
     data.price = parseFloat(data === null || data === void 0 ? void 0 : data.price);
-    if ('data' in ((_k = req === null || req === void 0 ? void 0 : req.files) === null || _k === void 0 ? void 0 : _k.image)) {
-        const base64Data = (_o = (_m = (_l = req === null || req === void 0 ? void 0 : req.files) === null || _l === void 0 ? void 0 : _l.image) === null || _m === void 0 ? void 0 : _m.data) === null || _o === void 0 ? void 0 : _o.toString('base64');
-        if (base64Data) {
-            data.image = `data:${(_q = (_p = req === null || req === void 0 ? void 0 : req.files) === null || _p === void 0 ? void 0 : _p.image) === null || _q === void 0 ? void 0 : _q.mimetype};base64,` + base64Data;
-        }
-        else {
-            data.image = '';
-            delete data.image;
-        }
-    }
-    else {
-        delete data.image;
-    }
-    const result = yield service_service_1.ServiceService.updateToDB((_r = req === null || req === void 0 ? void 0 : req.params) === null || _r === void 0 ? void 0 : _r.id, data);
+    // if ('data' in req?.files?.image) {
+    //   const base64Data = req?.files?.image?.data?.toString('base64')
+    //   if (base64Data) {
+    //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    //   } else {
+    //     data.image = ''
+    //     delete data.image
+    //   }
+    // } else {
+    //   delete data.image
+    // }
+    const result = yield service_service_1.ServiceService.updateToDB((_d = req === null || req === void 0 ? void 0 : req.params) === null || _d === void 0 ? void 0 : _d.id, data);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -186,9 +182,9 @@ const updateData = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     }
 }));
 const statusChange = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _s;
+    var _e;
     const { status } = req.body;
-    const result = yield service_service_1.ServiceService.statusChange((_s = req === null || req === void 0 ? void 0 : req.params) === null || _s === void 0 ? void 0 : _s.id, status);
+    const result = yield service_service_1.ServiceService.statusChange((_e = req === null || req === void 0 ? void 0 : req.params) === null || _e === void 0 ? void 0 : _e.id, status);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -245,8 +241,8 @@ const getUpcomingService = (0, catchAsync_1.default)((req, res) => __awaiter(voi
     }
 }));
 const getServiceByCategory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _t;
-    const result = yield service_service_1.ServiceService.getServiceByCategory((_t = req === null || req === void 0 ? void 0 : req.params) === null || _t === void 0 ? void 0 : _t.id);
+    var _f;
+    const result = yield service_service_1.ServiceService.getServiceByCategory((_f = req === null || req === void 0 ? void 0 : req.params) === null || _f === void 0 ? void 0 : _f.id);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,

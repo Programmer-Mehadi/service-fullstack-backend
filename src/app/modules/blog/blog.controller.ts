@@ -7,16 +7,16 @@ import { BlogService } from './blog.service'
 
 const create = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body, authorID: req?.user?.userId }
-  if ('data' in req?.files?.image) {
-    const base64Data = req?.files?.image?.data?.toString('base64')
-    if (base64Data) {
-      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
-    } else {
-      data.image = ''
-    }
-  } else {
-    data.image = ''
-  }
+  // if ('data' in req?.files?.image) {
+  //   const base64Data = req?.files?.image?.data?.toString('base64')
+  //   if (base64Data) {
+  //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  //   } else {
+  //     data.image = ''
+  //   }
+  // } else {
+  //   data.image = ''
+  // }
 
   const result = await BlogService.createToDB(data)
   if (result) {
@@ -169,18 +169,18 @@ const getPublicSingle = async (req: Request, res: Response) => {
 
 const update = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body }
-  if ('data' in req?.files?.image) {
-    const base64Data = req?.files?.image?.data?.toString('base64')
-    if (base64Data) {
-      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
-    } else {
-      data.image = ''
-      delete data.image
-    }
-  } else {
-    data.image = ''
-    delete data.image
-  }
+  // if ('data' in req?.files?.image) {
+  //   const base64Data = req?.files?.image?.data?.toString('base64')
+  //   if (base64Data) {
+  //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  //   } else {
+  //     data.image = ''
+  //     delete data.image
+  //   }
+  // } else {
+  //   data.image = ''
+  //   delete data.image
+  // }
 
   const result = await BlogService.update(req?.params?.id, data)
   if (result) {

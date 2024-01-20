@@ -8,16 +8,16 @@ import { CategoryService } from './category.service'
 const createData = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body, authorID: req?.user?.userId }
 
-  if ('data' in req?.files?.image) {
-    const base64Data = req?.files?.image?.data?.toString('base64')
-    if (base64Data) {
-      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
-    } else {
-      data.image = ''
-    }
-  } else {
-    data.image = ''
-  }
+  // if ('data' in req?.files?.image) {
+  //   const base64Data = req?.files?.image?.data?.toString('base64')
+  //   if (base64Data) {
+  //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  //   } else {
+  //     data.image = ''
+  //   }
+  // } else {
+  //   data.image = ''
+  // }
 
   const result = await CategoryService.createToDB(data)
   if (result) {
@@ -115,17 +115,17 @@ const getSingleData = async (req: Request, res: Response) => {
 const updateData = catchAsync(async (req: Request, res: Response) => {
   const data = { ...req.body }
 
-  if ('data' in req?.files?.image) {
-    const base64Data = req?.files?.image?.data?.toString('base64')
-    if (base64Data) {
-      data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
-    } else {
-      data.image = ''
-      delete data.image
-    }
-  } else {
-    delete data.image
-  }
+  // if ('data' in req?.files?.image) {
+  //   const base64Data = req?.files?.image?.data?.toString('base64')
+  //   if (base64Data) {
+  //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+  //   } else {
+  //     data.image = ''
+  //     delete data.image
+  //   }
+  // } else {
+  //   delete data.image
+  // }
   const result = await CategoryService.updateToDB(req?.params?.id, data)
   if (result) {
     sendResponse<object>(res, {

@@ -18,20 +18,18 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const blog_service_1 = require("./blog.service");
 const create = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a;
     const data = Object.assign(Object.assign({}, req.body), { authorID: (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.userId });
-    if ('data' in ((_b = req === null || req === void 0 ? void 0 : req.files) === null || _b === void 0 ? void 0 : _b.image)) {
-        const base64Data = (_e = (_d = (_c = req === null || req === void 0 ? void 0 : req.files) === null || _c === void 0 ? void 0 : _c.image) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.toString('base64');
-        if (base64Data) {
-            data.image = `data:${(_g = (_f = req === null || req === void 0 ? void 0 : req.files) === null || _f === void 0 ? void 0 : _f.image) === null || _g === void 0 ? void 0 : _g.mimetype};base64,` + base64Data;
-        }
-        else {
-            data.image = '';
-        }
-    }
-    else {
-        data.image = '';
-    }
+    // if ('data' in req?.files?.image) {
+    //   const base64Data = req?.files?.image?.data?.toString('base64')
+    //   if (base64Data) {
+    //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    //   } else {
+    //     data.image = ''
+    //   }
+    // } else {
+    //   data.image = ''
+    // }
     const result = yield blog_service_1.BlogService.createToDB(data);
     if (result) {
         (0, sendResponse_1.default)(res, {
@@ -108,9 +106,9 @@ const getLatestBlog = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     }
 }));
 const statusChange = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _h;
+    var _b;
     const { status } = req.body;
-    const result = yield blog_service_1.BlogService.statusChange((_h = req === null || req === void 0 ? void 0 : req.params) === null || _h === void 0 ? void 0 : _h.id, status);
+    const result = yield blog_service_1.BlogService.statusChange((_b = req === null || req === void 0 ? void 0 : req.params) === null || _b === void 0 ? void 0 : _b.id, status);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -129,8 +127,8 @@ const statusChange = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     }
 }));
 const deleteToDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _j;
-    const result = yield blog_service_1.BlogService.deleteToDB((_j = req === null || req === void 0 ? void 0 : req.params) === null || _j === void 0 ? void 0 : _j.id);
+    var _c;
+    const result = yield blog_service_1.BlogService.deleteToDB((_c = req === null || req === void 0 ? void 0 : req.params) === null || _c === void 0 ? void 0 : _c.id);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -149,8 +147,8 @@ const deleteToDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     }
 }));
 const getSingle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _k;
-    const result = yield blog_service_1.BlogService.getSingle((_k = req === null || req === void 0 ? void 0 : req.params) === null || _k === void 0 ? void 0 : _k.id);
+    var _d;
+    const result = yield blog_service_1.BlogService.getSingle((_d = req === null || req === void 0 ? void 0 : req.params) === null || _d === void 0 ? void 0 : _d.id);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -169,8 +167,8 @@ const getSingle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const getPublicSingle = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _l;
-    const result = yield blog_service_1.BlogService.getPublicSingleToDB((_l = req === null || req === void 0 ? void 0 : req.params) === null || _l === void 0 ? void 0 : _l.id);
+    var _e;
+    const result = yield blog_service_1.BlogService.getPublicSingleToDB((_e = req === null || req === void 0 ? void 0 : req.params) === null || _e === void 0 ? void 0 : _e.id);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
@@ -189,23 +187,21 @@ const getPublicSingle = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 const update = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _m, _o, _p, _q, _r, _s, _t;
+    var _f;
     const data = Object.assign({}, req.body);
-    if ('data' in ((_m = req === null || req === void 0 ? void 0 : req.files) === null || _m === void 0 ? void 0 : _m.image)) {
-        const base64Data = (_q = (_p = (_o = req === null || req === void 0 ? void 0 : req.files) === null || _o === void 0 ? void 0 : _o.image) === null || _p === void 0 ? void 0 : _p.data) === null || _q === void 0 ? void 0 : _q.toString('base64');
-        if (base64Data) {
-            data.image = `data:${(_s = (_r = req === null || req === void 0 ? void 0 : req.files) === null || _r === void 0 ? void 0 : _r.image) === null || _s === void 0 ? void 0 : _s.mimetype};base64,` + base64Data;
-        }
-        else {
-            data.image = '';
-            delete data.image;
-        }
-    }
-    else {
-        data.image = '';
-        delete data.image;
-    }
-    const result = yield blog_service_1.BlogService.update((_t = req === null || req === void 0 ? void 0 : req.params) === null || _t === void 0 ? void 0 : _t.id, data);
+    // if ('data' in req?.files?.image) {
+    //   const base64Data = req?.files?.image?.data?.toString('base64')
+    //   if (base64Data) {
+    //     data.image = `data:${req?.files?.image?.mimetype};base64,` + base64Data
+    //   } else {
+    //     data.image = ''
+    //     delete data.image
+    //   }
+    // } else {
+    //   data.image = ''
+    //   delete data.image
+    // }
+    const result = yield blog_service_1.BlogService.update((_f = req === null || req === void 0 ? void 0 : req.params) === null || _f === void 0 ? void 0 : _f.id, data);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,

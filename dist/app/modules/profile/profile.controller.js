@@ -57,17 +57,16 @@ const getEditInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 const editInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c, _d, _e, _f, _g, _h, _j;
+    var _c;
     const data = req.body;
-    if ('data' in ((_c = req === null || req === void 0 ? void 0 : req.files) === null || _c === void 0 ? void 0 : _c.profileImg)) {
-        const base64Data = (_f = (_e = (_d = req === null || req === void 0 ? void 0 : req.files) === null || _d === void 0 ? void 0 : _d.profileImg) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.toString('base64');
-        data.profileImg =
-            `data:${(_h = (_g = req === null || req === void 0 ? void 0 : req.files) === null || _g === void 0 ? void 0 : _g.profileImg) === null || _h === void 0 ? void 0 : _h.mimetype};base64,` + base64Data;
-    }
-    else {
-        delete data.profileImg;
-    }
-    const result = yield profile_service_1.ProfileService.editInfo((_j = req === null || req === void 0 ? void 0 : req.user) === null || _j === void 0 ? void 0 : _j.userId, data);
+    // if ('data' in req?.files?.profileImg) {
+    //   const base64Data = req?.files?.profileImg?.data?.toString('base64')
+    //   data.profileImg =
+    //     `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+    // } else {
+    //   delete data.profileImg
+    // }
+    const result = yield profile_service_1.ProfileService.editInfo((_c = req === null || req === void 0 ? void 0 : req.user) === null || _c === void 0 ? void 0 : _c.userId, data);
     if (result) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,

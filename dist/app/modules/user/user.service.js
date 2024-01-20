@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const getAlluser = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.user.findMany({

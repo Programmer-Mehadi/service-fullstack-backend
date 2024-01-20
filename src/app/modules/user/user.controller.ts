@@ -44,6 +44,7 @@ const getAdminUser = catchAsync(async (req: Request, res: Response) => {
 })
 
 const updateUser = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body)
   const result = await UserService.updateUser(req.params.id, req.body)
   sendResponse<object>(res, {
     statusCode: httpStatus.OK,
@@ -65,14 +66,14 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const data = req.body
-
-  if ('data' in req.files?.profileImg) {
-    const base64Data = req?.files?.profileImg?.data?.toString('base64')
-    data.profileImg =
-      `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
-  } else {
-    data.profileImg = ''
-  }
+  // console.log(data)
+  // if ('data' in req.files?.profileImg) {
+  //   const base64Data = req?.files?.profileImg?.data?.toString('base64')
+  //   data.profileImg =
+  //     `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+  // } else {
+  //   data.profileImg = ''
+  // }
   const result = await UserService.createUser(data)
   sendResponse<object>(res, {
     statusCode: httpStatus.OK,
@@ -84,17 +85,17 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const data = req.body
 
-  if ('data' in req.files?.profileImg) {
-    const base64Data = req?.files?.profileImg?.data?.toString('base64')
-    if (base64Data) {
-      data.profileImg =
-        `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
-    } else {
-      data.profileImg = ''
-    }
-  } else {
-    data.profileImg = ''
-  }
+  // if ('data' in req.files?.profileImg) {
+  //   const base64Data = req?.files?.profileImg?.data?.toString('base64')
+  //   if (base64Data) {
+  //     data.profileImg =
+  //       `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+  //   } else {
+  //     data.profileImg = ''
+  //   }
+  // } else {
+  //   data.profileImg = ''
+  // }
   const result = await UserService.createAdmin(data)
   sendResponse<object>(res, {
     statusCode: httpStatus.OK,

@@ -55,6 +55,7 @@ const getAdminUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
     }
 }));
 const updateUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
     const result = yield user_service_1.UserService.updateUser(req.params.id, req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
@@ -73,16 +74,15 @@ const deleteUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     });
 }));
 const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c, _d, _e, _f;
     const data = req.body;
-    if ('data' in ((_a = req.files) === null || _a === void 0 ? void 0 : _a.profileImg)) {
-        const base64Data = (_d = (_c = (_b = req === null || req === void 0 ? void 0 : req.files) === null || _b === void 0 ? void 0 : _b.profileImg) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.toString('base64');
-        data.profileImg =
-            `data:${(_f = (_e = req === null || req === void 0 ? void 0 : req.files) === null || _e === void 0 ? void 0 : _e.profileImg) === null || _f === void 0 ? void 0 : _f.mimetype};base64,` + base64Data;
-    }
-    else {
-        data.profileImg = '';
-    }
+    // console.log(data)
+    // if ('data' in req.files?.profileImg) {
+    //   const base64Data = req?.files?.profileImg?.data?.toString('base64')
+    //   data.profileImg =
+    //     `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+    // } else {
+    //   data.profileImg = ''
+    // }
     const result = yield user_service_1.UserService.createUser(data);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
@@ -92,21 +92,18 @@ const createUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     });
 }));
 const createAdmin = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _g, _h, _j, _k, _l, _m;
     const data = req.body;
-    if ('data' in ((_g = req.files) === null || _g === void 0 ? void 0 : _g.profileImg)) {
-        const base64Data = (_k = (_j = (_h = req === null || req === void 0 ? void 0 : req.files) === null || _h === void 0 ? void 0 : _h.profileImg) === null || _j === void 0 ? void 0 : _j.data) === null || _k === void 0 ? void 0 : _k.toString('base64');
-        if (base64Data) {
-            data.profileImg =
-                `data:${(_m = (_l = req === null || req === void 0 ? void 0 : req.files) === null || _l === void 0 ? void 0 : _l.profileImg) === null || _m === void 0 ? void 0 : _m.mimetype};base64,` + base64Data;
-        }
-        else {
-            data.profileImg = '';
-        }
-    }
-    else {
-        data.profileImg = '';
-    }
+    // if ('data' in req.files?.profileImg) {
+    //   const base64Data = req?.files?.profileImg?.data?.toString('base64')
+    //   if (base64Data) {
+    //     data.profileImg =
+    //       `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+    //   } else {
+    //     data.profileImg = ''
+    //   }
+    // } else {
+    //   data.profileImg = ''
+    // }
     const result = yield user_service_1.UserService.createAdmin(data);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

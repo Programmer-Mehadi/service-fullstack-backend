@@ -43,13 +43,13 @@ const getEditInfo = async (req: Request, res: Response) => {
 
 const editInfo = async (req: Request, res: Response) => {
   const data = req.body
-  if ('data' in req?.files?.profileImg) {
-    const base64Data = req?.files?.profileImg?.data?.toString('base64')
-    data.profileImg =
-      `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
-  } else {
-    delete data.profileImg
-  }
+  // if ('data' in req?.files?.profileImg) {
+  //   const base64Data = req?.files?.profileImg?.data?.toString('base64')
+  //   data.profileImg =
+  //     `data:${req?.files?.profileImg?.mimetype};base64,` + base64Data
+  // } else {
+  //   delete data.profileImg
+  // }
   const result = await ProfileService.editInfo(req?.user?.userId, data)
   if (result) {
     sendResponse<object>(res, {
