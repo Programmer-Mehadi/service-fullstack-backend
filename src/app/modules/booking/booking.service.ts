@@ -18,6 +18,7 @@ const getAllToDB = async (user: any) => {
         price: true,
         time: true,
         date: true,
+        sameId: true,
         service: {
           select: {
             title: true,
@@ -47,6 +48,7 @@ const getAllToDB = async (user: any) => {
         price: true,
         time: true,
         date: true,
+        sameId: true,
         status: true,
         service: {
           select: {

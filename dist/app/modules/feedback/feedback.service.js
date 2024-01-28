@@ -35,11 +35,13 @@ const getAllToDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 user: {
                     select: {
                         name: true,
+                        id: true,
                     },
                 },
                 service: {
                     select: {
                         title: true,
+                        id: true,
                     },
                 },
             },
@@ -63,11 +65,13 @@ const getAllToDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 user: {
                     select: {
                         name: true,
+                        id: true,
                     },
                 },
                 service: {
                     select: {
                         title: true,
+                        id: true,
                     },
                 },
             },

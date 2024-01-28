@@ -31,9 +31,11 @@ const getAllToDB = () => __awaiter(void 0, void 0, void 0, function* () {
             image: true,
             createdAt: true,
             updatedAt: true,
+            authorID: true,
             user: {
                 select: {
                     name: true,
+                    id: true,
                 },
             },
         },

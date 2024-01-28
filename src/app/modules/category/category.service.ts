@@ -18,9 +18,11 @@ const getAllToDB = async () => {
       image: true,
       createdAt: true,
       updatedAt: true,
+      authorID: true,
       user: {
         select: {
           name: true,
+          id: true,
         },
       },
     },

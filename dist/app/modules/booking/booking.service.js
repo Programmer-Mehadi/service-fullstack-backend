@@ -31,6 +31,7 @@ const getAllToDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 price: true,
                 time: true,
                 date: true,
+                sameId: true,
                 service: {
                     select: {
                         title: true,
@@ -61,6 +62,7 @@ const getAllToDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
                 price: true,
                 time: true,
                 date: true,
+                sameId: true,
                 status: true,
                 service: {
                     select: {

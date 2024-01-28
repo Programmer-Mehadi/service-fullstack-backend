@@ -22,11 +22,13 @@ const getAllToDB = async (user: any) => {
         user: {
           select: {
             name: true,
+            id: true,
           },
         },
         service: {
           select: {
             title: true,
+            id: true,
           },
         },
       },
@@ -49,11 +51,13 @@ const getAllToDB = async (user: any) => {
         user: {
           select: {
             name: true,
+            id: true,
           },
         },
         service: {
           select: {
             title: true,
+            id: true,
           },
         },
       },
